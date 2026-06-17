@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chander Parkash — Web Developer</title>
+
+<!-- ============================================================
+  HOW TO USE THIS FILE
+  1. Find every [EDIT] comment below and replace the placeholder
+     with your own info (name, bio, links, projects).
+  2. Save this file as index.html in a repo named
+     <your-github-username>.github.io
+  3. Push it to GitHub, then go to Settings > Pages and set the
+     source branch to "main" / root. Your site goes live at
+     https://<your-github-username>.github.io
+============================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:        #0E2233;
+    --bg-panel:  #123049;
+    --bg-panel-hover: #163a59;
+    --ink:       #EAF2FB;
+    --ink-dim:   #8FB0CC;
+    --accent:    #E2853D;
+    --grid-line: rgba(234, 242, 251, 0.08);
+    --max-w: 880px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  /* faint blueprint grid across the whole page */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a { color: inherit; }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- corner crop marks, architectural drawing style ---------- */
+  .crop {
+    position: fixed;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--ink-dim);
+    opacity: 0.5;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .crop.tl { top: 16px; left: 16px; border-right: none; border-bottom: none; }
+  .crop.tr { top: 16px; right: 16px; border-left: none; border-bottom: none; }
+  .crop.bl { bottom: 16px; left: 16px; border-right: none; border-top: none; }
+  .crop.br { bottom: 16px; right: 16px; border-left: none; border-top: none; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 7vw, 4.6rem);
+    line-height: 1.05;
+    margin: 0.6rem 0 0;
+    text-transform: uppercase;
+  }
+
+  .hero .role {
+    display: block;
+    color: var(--accent);
+    font-size: 0.45em;
+    letter-spacing: 0.06em;
+    margin-top: 0.4em;
+  }
+
+  .tagline {
+    max-width: 540px;
+    margin: 1.6rem 0 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent);
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+  }
+
+  .hero-links { margin-top: 2.4rem; display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-primary, .btn-ghost {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    padding: 12px 20px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: transform 0.15s ease, background 0.15s ease;
+    display: inline-block;
+  }
+  .btn-primary { background: var(--accent); color: #0E2233; }
+  .btn-ghost   { border: 1px solid var(--ink-dim); color: var(--ink); }
+  .btn-primary:hover, .btn-ghost:hover { transform: translateY(-2px); }
+
+  /* ---------- ruler nav ---------- */
+  .ruler {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid var(--grid-line);
+    border-bottom: 1px solid var(--grid-line);
+    padding: 14px 0;
+  }
+  .ruler .wrap {
+    display: flex;
+    gap: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--ink-dim);
+  }
+  .ruler a { text-decoration: none; }
+  .ruler a:hover { color: var(--accent); }
+  .ruler span.tick { color: var(--accent); }
+
+  /* ---------- section heading ---------- */
+  section { position: relative; z-index: 2; padding: 90px 0; }
+  h2.section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin: 0 0 2.4rem;
+    letter-spacing: 0.03em;
+  }
+ 
+
+  /* ---------- about / skills (dimension-line style) ---------- */
+  .about p.bio { max-width: 640px; color: var(--ink-dim); font-size: 1.05rem; }
+
+  .dims { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 0; }
+  .dim {
+    flex: 1 1 150px;
+    border-top: 1px dashed var(--ink-dim);
+    padding-top: 10px;
+    margin-right: 24px;
+  }
+  .dim .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .dim .value { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin-top: 4px; }
+
+  /* ---------- projects: git-log entries ---------- */
+  .log-entry {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 26px 20px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease, background 0.2s ease;
+  }
+  .log-entry.in-view { opacity: 1; transform: translateY(0); }
+  .log-entry:hover { background: var(--bg-panel); }
+
+  .log-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+  }
+  .log-meta .hash { color: var(--accent); display: block; margin-bottom: 6px; }
+
+  .log-body h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.3rem;
+    margin: 0 0 8px;
+  }
+  .log-body p { color: var(--ink-dim); margin: 0 0 12px; max-width: 560px; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    border: 1px solid var(--ink-dim);
+    color: var(--ink-dim);
+    padding: 3px 9px;
+    border-radius: 12px;
+  }
+
+  .log-links { display: flex; gap: 18px; }
+  .log-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: var(--accent);
+    border-bottom: 1px solid transparent;
+  }
+  .log-links a:hover { border-bottom-color: var(--accent); }
+
+  /* ---------- contact: config file style ---------- */
+  .contact {
+    border-top: 1px solid var(--grid-line);
+  }
+  .config {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    background: var(--bg-panel);
+    border-radius: 4px;
+    padding: 28px 32px;
+    max-width: 480px;
+  }
+  .config .section-tag { color: var(--accent); margin-bottom: 10px; }
+  .config .kv { color: var(--ink-dim); margin: 4px 0; }
+  .config .kv .k { color: var(--ink); }
+  .config a { text-decoration: none; }
+  .config a:hover { color: var(--accent); }
+
+  footer.foot {
+    text-align: center;
+    color: var(--ink-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 30px 0 50px;
+  }
+
+  @media (max-width: 640px) {
+    .log-entry { grid-template-columns: 1fr; }
+    .ruler .wrap { gap: 18px; flex-wrap: wrap; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .log-entry { transition: none; opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="crop tl"></div>
+<div class="crop tr"></div>
+<div class="crop bl"></div>
+<div class="crop br"></div>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow"></span>
+    <h1>
+      <!-- [EDIT] your name -->
+      Chander Parkash
+      <!-- [EDIT] your role/title -->
+      <span class="role">PHP Full Stack Developer</span>
+    </h1>
+    <!-- [EDIT] one-line pitch about what you build -->
+    <p class="tagline">I design and build fast, responsive websites — from layout to deployment.</p>
+    <div class="hero-links">
+      <a href="#projects" class="btn-primary">view projects →</a>
+      <!-- [EDIT] your email -->
+      <a href="mailto:chanderkamboj05@gmail.com" class="btn-ghost">get in touch</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== NAV ===================== -->
+<nav class="ruler">
+  <div class="wrap">
+    <span class="tick">[01]</span><a href="#about">about</a>
+    <span class="tick">[02]</span><a href="#projects">projects</a>
+    <span class="tick">[03]</span><a href="#contact">contact</a>
+  </div>
+</nav>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="about">
+<div class="wrap">
+    <h2 class="section-title">about</h2>
+    <p class="bio">
+      PHP Full Stack Developer with 4.5+ years of experience building scalable, secure web applications across diverse industries. I specialize in Laravel, WordPress (headless &amp; traditional), and React.js front-ends — shipping complex systems like digital wallets, trade-in marketplaces, multi-level commission platforms, and online examination tools, solo and within teams. Beyond core development, I connect workflows end-to-end with automation — GoHighLevel, Make, Zapier, Zoho, Calendly, and custom forms. Equally comfortable across WordPress, Shopify, and Laravel, I consistently ship clean, maintainable code that meets deadlines.
+    </p>
+    <div class="dims">
+      <div class="dim"><div class="label">backend</div><div class="value">PHP, Laravel, WordPress</div></div>
+      <div class="dim"><div class="label">frontend</div><div class="value">React.js, Next.js, JS</div></div>
+      <div class="dim"><div class="label">cms & ecommerce</div><div class="value">WordPress, Shopify, Elementor, WPBakery</div></div>
+      <div class="dim"><div class="label">database</div><div class="value">MySQL, Query Optimization</div></div>
+      <div class="dim"><div class="label">apis</div><div class="value">REST API, Headless CMS, JSON</div></div>
+      <div class="dim"><div class="label">automation</div><div class="value">GHL, Make, Zapier, Zoho, Calendly</div></div>
+      <div class="dim"><div class="label">devops & tools</div><div class="value">Git, AWS, Linux, cPanel</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS (git-log style) ===================== -->
+<section id="projects" class="projects">
+  <div class="wrap">
+    <h2 class="section-title">build log</h2>
+
+    <!-- [EDIT] Duplicate this .log-entry block for each project.
+         hash = make up any 7-character id, date = rough month/year -->
+	<div class="log-entry">
+      <div class="log-meta">
+        <span class="hash">w72c9e4</span>
+        2026-04
+        <!-- <span class="meta-line">solo · ongoing</span> -->
+      </div>
+	  <div class="log-body">
+		  <h3>feat: Vancouver Banner Printing — custom Shopify store</h3>
+		  <p>Custom Shopify storefront built from scratch with fully custom sections and JSON-based product templates for a flexible, easy-to-manage design.</p>
+		  <div class="tags">
+			<span class="tag">Shopify</span>
+			<span class="tag">Liquid</span>
+			<span class="tag">JSON Templates</span>
+			<span class="tag">Custom Sections</span>
+			<span class="tag">HTML/CSS</span>
+		  </div>
+		  <div class="log-links">
+			<a href="https://vancouverbannerprinting.com" target="_blank">view live ↗</a>
+		  </div>
+		</div>
+	</div>
+	<div class="log-entry">
+		<div class="log-meta">
+		<span class="hash">w72c9e4</span>
+		2026-01
+		<!-- <span class="meta-line">solo · ongoing</span> -->
+		</div>
+		<div class="log-body">
+		  <h3>feat: The Robotic Life — humanoid robotics platform</h3>
+		  <p>Content and directory platform covering humanoid robots, featuring in-depth robot profiles (Tesla Optimus, Figure 03, and more), a funding tracker, robotics investing insights, and a company directory for the humanoid robotics industry.</p>
+		  <div class="tags">
+			<span class="tag">WordPress</span>
+			<span class="tag">Elementor</span>
+			<span class="tag">HTML/CSS</span>
+		  </div>
+		  <div class="log-links">
+			<a href="https://theroboticlife.com" target="_blank">view live ↗</a>
+		  </div>
+		</div> 
+	</div> 
+    <div class="log-entry">
+      <div class="log-meta">
+        <span class="hash">b71c9e3</span>
+        2025-04
+        <!-- <span class="meta-line">solo · ongoing</span> -->
+      </div>
+      <div class="log-body">
+        <h3>feat: Synapse Academy — online examination platform</h3>
+        <p>Structured exam system with token-based authentication, real-time question tracking, auto-submission on timeout, and a post-exam performance analysis module for students to review results and identify weak areas.</p>
+        <div class="tags">
+          <span class="tag">WordPress</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">jQuery</span>
+          <span class="tag">Ajax</span>
+          <span class="tag">Bootstrap</span>
+          <span class="tag">SQL</span>
+          <span class="tag">HTML/CSS</span>
+        </div>
+        <div class="log-links">
+          <a href="https://synapseacademy.co.uk" target="_blank">view live ↗</a>
+        </div>
+      </div>
+    </div>
+	<div class="log-entry">
+      <div class="log-meta">
+        <span class="hash">b71c9e3</span>
+        2025-02
+        <!-- <span class="meta-line">solo · ongoing</span> -->
+      </div>
+		<div class="log-body">
+		  <h3>feat: Holders Technology — multilingual corporate site</h3>
+		  <p>Multilingual corporate website (English, German, French) for a technology group spanning lighting components, smart lighting control, PCB manufacturing, and smart buildings, with custom theme development, custom plugins, and ACF-driven content management.</p>
+		  <div class="tags">
+			<span class="tag">WordPress</span>
+			<span class="tag">Theme Customization</span>
+			<span class="tag">Custom Plugins</span>
+			<span class="tag">ACF</span>
+			<span class="tag">Multilingual</span>
+		  </div>
+		  <div class="log-links">
+			<a href="https://holderstechnology.com" target="_blank">view live ↗</a>
+		  </div>
+		</div>
+	</div>
+	<div class="log-entry">
+		<div class="log-meta">
+		<span class="hash">65r3a1</span>
+		2024-08
+		<!-- <span class="meta-line">2 members · completed</span> -->
+		</div>
+		<div class="log-body">
+		  <h3>feat: Beeforce Invest — market analysis & investment platform</h3>
+		  <p>Subscription-based investment platform offering market analysis across stocks, indices, crypto, and commodities, with tiered portfolio plans, diversification guidance, and risk management tools. Built with custom WordPress development, ACF, third-party API integrations, and custom widgets.</p>
+		  <div class="tags">
+			<span class="tag">WordPress</span>
+			<span class="tag">ACF</span>
+			<span class="tag">API Integration</span>
+			<span class="tag">Custom Widgets</span>
+		  </div>
+		  <div class="log-links">
+			<a href="https://beeforceinvest.ch" target="_blank">view live ↗</a>
+		  </div>
+		</div>
+	</div>
+    <div class="log-entry">
+      <div class="log-meta">
+        <span class="hash">34r7a8</span>
+        2024-06
+        <!-- <span class="meta-line">2 members · completed</span> -->
+      </div>
+      <div class="log-body">
+        <h3>feat: Influencer — multi-level commission system</h3>
+        <p>Extended a two-level influencer commission plugin into a fully customized three-level system with parent-child referral hierarchy, ensuring accurate commission distribution across all levels based on the referral chain.</p>
+        <div class="tags">
+          <span class="tag">WordPress</span>
+          <span class="tag">Plugin Customization</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">jQuery</span>
+          <span class="tag">Bootstrap</span>
+          <span class="tag">APIs</span>
+        </div>
+        <div class="log-links">
+          <a href="https://influencer.com" target="_blank">view live ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="log-entry">
+      <div class="log-meta">
+        <span class="hash">d44a6f1</span>
+        2024-01
+        <!-- <span class="meta-line">2 members · completed</span> -->
+      </div>
+      <div class="log-body">
+        <h3>feat: SellMac — device trade-in marketplace</h3>
+        <p>Buy/sell platform inspired by Flipkart Trade-In &amp; Apple Trade-In. Users select a device, specify condition, get an instant quote, and place a sell order. Admin generates invoices and processes Stripe payouts after device verification.</p>
+        <div class="tags">
+          <span class="tag">PHP</span>
+          <span class="tag">WordPress</span>
+          <span class="tag">jQuery</span>
+          <span class="tag">Ajax</span>
+          <span class="tag">REST API</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Stripe</span>
+          <span class="tag">HTML/CSS</span>
+        </div>
+        <div class="log-links">
+          <a href="https://sellmac.com" target="_blank">view live ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- add more .log-entry blocks here as you build more -->
+
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2 class="section-title">contact</h2>
+    <div class="config">
+      <div class="section-tag"></div>
+      <!-- [EDIT] fill in your real details -->
+      <div class="kv"><span class="k">name</span> = Chander Parkash</div>
+	  <div class="kv"><span class="k">Mobile</span> = <a href="tel:9797740535">+91 97977 40535</a></div>
+      <div class="kv"><span class="k">email</span> = <a href="mailto:chanderkamboj05@gmail.com">chanderkamboj05@gmail.com</a></div>
+      <div class="kv"><span class="k">github</span> = <a href="https://github.com/chander1322" target="_blank">github.com/chander1322</a></div>
+      <div class="kv"><span class="k">linkedin</span> = <a href="https://linkedin.com/in/chander-kamboj205789243" target="_blank">linkedin.com/in/chander-kamboj205789243</a></div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  built with html, css &amp; a bit of patience — last updated 2026
+</footer>
+
+<script>
+  // Reveal git-log entries as they scroll into view
+  const entries = document.querySelectorAll('.log-entry');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((items) => {
+      items.forEach((item) => {
+        if (item.isIntersecting) {
+          item.target.classList.add('in-view');
+          observer.unobserve(item.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    entries.forEach((entry) => observer.observe(entry));
+  } else {
+    entries.forEach((entry) => entry.classList.add('in-view'));
+  }
+</script>
+
+</body>
+</html>
